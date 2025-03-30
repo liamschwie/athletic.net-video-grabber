@@ -1,19 +1,18 @@
 # 🎥 Brightcove Video Download Guide  
 
-A step-by-step tutorial to extract and download high-quality videos from Brightcove players.  
+A step-by-step tutorial to extract and download high-quality videos from Athletic.net race results using Brightcove players.  
 
 ## 🔍 Overview  
 
 This guide explains how to:  
 
-✅ Find the hidden video stream URL from a Brightcove player page  
+✅ Find the hidden video id from a Athletic.net race results page  
 ✅ Download the highest quality (1080p/4K) using `ffmpeg`  
 ✅ Bypass common restrictions (Referer/DRM)  
 
 ### 🎯 Works for:  
 
-- Brightcove-hosted videos (e.g., news sites, educational platforms)  
-- HLS (`.m3u8`) or MP4 streams  
+- Any results website using Athletic.net to store videos
 
 ---
 
@@ -32,44 +31,42 @@ brew install ffmpeg
 
 ---
 
-## 🔧 Step 1: Locate the Video Stream URL  
+## 🔧 Step 1: Locate the Data Video ID
 
-### **Method A: Browser Dev Tools**  
+1. Navigate to the event you ran in the results
+2. Press `F12` or right click and click inspect → Go to the **elements** tab.  
+3. Press `CMD/CTRL + F` and Search for:  
+   - `data-video-id` to find the video id
+   - `data-heat-number` to find your heat (video id will be shown nearby)
+   - You are looking for an element that looks like this:
 
-1. Open the webpage with the Brightcove video.  
-2. Press `F12` → Go to the **Network** tab.  
-3. Filter for:  
-   - `.m3u8` (HLS streams)  
-   - `manifest.mpd` (DASH streams)  
-   - `video.mp4` (direct MP4 files)  
-4. Look for URLs like:  
-
-```txt
-https://cf-images.us-east-1.prod.boltdns.net/v1/playback/[ACCOUNT_ID]/[VIDEO_ID]/master.m3u8
+```html
+<div class="video-thumb--carousel-cell" data-heat-number="1" data-video-id="6370761263112"><div class="video-thumb--carousel--image"><img src="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/6055873638001/c3249f27-4e4b-49fb-84d0-94a5859e0dd1/main/160x90/11s509ms/match/image.jpg"></div><div class="video-thumb--carousel--title ng-star-inserted">Heat 1</div><!----><!----><div class="video-thumb--carousel--duration ng-star-inserted">0:23</div><!----></div>
 ```
 
-### **Method B: Player Page Hack**  
-
-Append `&isUI=false&isJSON=true` to the player URL to force a JSON response:  
+4. Copy the video id (Make sure you are copying the video id for the correct heat/event)
+5. Go tho this URL but replace "(videoid)" with your video id:
 
 ```txt
-https://players.brightcove.net/6055873638001/default_default/index.html?videoId=6370761103112&isUI=false&isJSON=true
+https://players.brightcove.net/(videoid)/default_default/index.html?videoId=6370761103112&**isUI=false&isVideojs=true&isJSON=true**
 ```
-
-➡ Extract the `sources[].src` URL from the JSON response.  
-
----
+For example:
+```txt
+https://players.brightcove.net/6055873638001/default_default/index.html?videoId=6370760085112&**isUI=false&isVideojs=true&isJSON=true**
+```
 
 ## 📥 Step 2: Download the Video  
 
 ### **Using ffmpeg (Best Quality)**  
 
+1. Run this command using terminal (modify download path if not on macOS):
 ```sh
 ffmpeg -i "https://cf-images.../master.m3u8" \
   -c copy \               # Preserve original quality  
   -bsf:a aac_adtstoasc \  # Fix audio sync  
-  "output_1080p.mp4"
+  "$HOME/Downloads/output_1080p.mp4"
 ```
+2. After it is finished downloading, it should appear in your Downloads folder.
 
 ### **If Blocked by Referer**  
 
@@ -123,7 +120,3 @@ You now have the highest-quality video saved locally.
 
 - Reverse-engineered from **Brightcove’s CMS API**  
 - Tested on **macOS/Linux** with `ffmpeg 7.x`  
-
----
-
-This version improves readability, formatting, and structure while keeping everything clean and easy to follow. 🚀 Let me know if you’d like any further refinements! 😃
