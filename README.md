@@ -33,7 +33,7 @@ brew install ffmpeg
 
 ## 🔧 Step 1: Locate the Data Video ID
 
-1. Navigate to the event you ran in the results
+1. Navigate to the event you ran on the results website
 2. Press `F12` or right click and click inspect → Go to the **elements** tab.  
 3. Press `CMD/CTRL + F` and Search for:  
    - `data-video-id` to find the video id
@@ -45,7 +45,7 @@ brew install ffmpeg
 ```
 
 4. Copy the video id (Make sure you are copying the video id for the correct heat/event)
-5. Go tho this URL but replace "(videoid)" with your video id:
+5. Go to this URL but replace "(videoid)" with your video id:
 
 ```txt
 https://players.brightcove.net/(videoid)/default_default/index.html?videoId=6370761103112&**isUI=false&isVideojs=true&isJSON=true**
