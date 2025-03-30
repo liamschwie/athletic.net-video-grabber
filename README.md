@@ -46,7 +46,7 @@ brew install ffmpeg
 
 4. Copy the video id and save it somewhere for now (for example, the video from above would be 6370761263112)
 5. Copy the account id from the link in the same element (for example, the video from above would be 6055873638001)
-6. Go to this URL but replace "(videoid)" with your video id and (accountid) with your account id:
+6. Go to this URL but replace "(videoid)" with your video id and "(accountid)" with your account id:
 
 ```txt
 https://players.brightcove.net/(accountid)/default_default/index.html?videoId=(videoid)&**isUI=false&isVideojs=true&isJSON=true**
