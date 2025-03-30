@@ -44,11 +44,12 @@ brew install ffmpeg
 <div class="video-thumb--carousel-cell" data-heat-number="1" data-video-id="6370761263112"><div class="video-thumb--carousel--image"><img src="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/6055873638001/c3249f27-4e4b-49fb-84d0-94a5859e0dd1/main/160x90/11s509ms/match/image.jpg"></div><div class="video-thumb--carousel--title ng-star-inserted">Heat 1</div><!----><!----><div class="video-thumb--carousel--duration ng-star-inserted">0:23</div><!----></div>
 ```
 
-4. Copy the video id (Make sure you are copying the video id for the correct heat/event)
-5. Go to this URL but replace "(videoid)" with your video id:
+4. Copy the video id and save it somewhere for now (for example, the video from above would be 6370761263112)
+5. Copy the account id from the link in the same element (for example, the video from above would be 6055873638001)
+6. Go to this URL but replace "(videoid)" with your video id and (accountid) with your account id:
 
 ```txt
-https://players.brightcove.net/(videoid)/default_default/index.html?videoId=6370761103112&**isUI=false&isVideojs=true&isJSON=true**
+https://players.brightcove.net/(accountid)/default_default/index.html?videoId=(videoid)&**isUI=false&isVideojs=true&isJSON=true**
 ```
 For example:
 ```txt
